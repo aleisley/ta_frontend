@@ -6,11 +6,10 @@ import { GlobalContext } from '../context/GlobalState';
 import { EditDeleteButtons } from './EditDeleteButtons';
 import DataTable from 'react-data-table-component';
 import { DateRangePicker } from 'react-dates';
-import moment from 'moment';
 import { axiosInstance } from '../axiosInstance';
 
 
-export const AppointmentList = () => {
+export const AppointmentList = props => {
   const { appointments, getAppointments, removeAppointment } = useContext(GlobalContext);
   const [startFilterDate, setStartFilterDate] = useState(null);
   const [endFilterDate, setEndFilterDate] = useState(null);
@@ -105,7 +104,6 @@ export const AppointmentList = () => {
         <CardBody>
           <DataTable
             columns={ columns }
-            // data={ appointments }
             data={ filteredAppointments.length ? filteredAppointments : appointments }
             pagination={ true }
             actions={

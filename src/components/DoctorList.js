@@ -47,7 +47,7 @@ export const DoctorList = () => {
         <React.Fragment>
           <EditDeleteButtons editLink={`/doctors/${row.id}/edit`}
           deleteFunction={() => removeDoctor(row.id)}/>
-          <Link className="btn btn-sm btn-primary ml-1" to="/doctors/:id/appointments">
+          <Link className="btn btn-sm btn-primary ml-1" to={`/doctors/${row.id}/appointments/`}>
             Appointments
           </Link>
         </React.Fragment>

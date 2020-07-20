@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   Form,
   FormGroup,
@@ -6,13 +6,14 @@ import {
   Input,
   Button,
   Card,
-  CardBody
+  CardBody,
+  Alert
 } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalState';
 
-export const AddDoctorForm = props => {
-  const { addDoctor } = useContext(GlobalContext);
+export const AddDoctorForm = () => {
+  const { addDoctor, responseStatus } = useContext(GlobalContext);
   const history = useHistory();
   const [doctor, setDoctor] = useState({
     'first_name': '',
@@ -24,16 +25,27 @@ export const AddDoctorForm = props => {
     setDoctor({...doctor, [e.target.name]: e.target.value})
   }
 
-  const onSubmit = () => {
-    addDoctor(doctor);
-    history.push('/doctors/');
+  const onSubmit = e => {
+    e.preventDefault();
+      addDoctor(doctor);
   }
+
+  useEffect(() => {
+    if (responseStatus.success) {
+      history.push('/doctors/')
+    }
+  }, [responseStatus])
 
   return (
     <React.Fragment>
       <h1 className="mt-2 mb-4 text-center">Add Doctor</h1>
       <Card className="shadow">
         <CardBody>
+          {responseStatus.detail &&
+            <Alert color="danger">
+              {responseStatus.detail}
+            </Alert>
+          }
           <Form onSubmit={ onSubmit }>
             <FormGroup>
               <Label>First Name</Label>

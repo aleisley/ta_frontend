@@ -14,7 +14,7 @@ import ReactDatetime from 'react-datetime';
 import { GlobalContext } from '../context/GlobalState';
 
 
-export const AddAppointmentForm = () => {
+export const AddAppointmentForm = props => {
   const { addAppointment, doctors } = useContext(GlobalContext);
   const history = useHistory();
   const [appointment, setAppointment] = useState({

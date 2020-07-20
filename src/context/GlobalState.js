@@ -1,11 +1,23 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 import { axiosInstance } from '../axiosInstance';
+import {
+  LOG_FAILURE,
+  GET_APPOINTMENTS,
+  GET_DOCTORS,
+  REMOVE_APPOINTMENT,
+  REMOVE_DOCTOR,
+  ADD_APPOINTMENT,
+  ADD_DOCTOR,
+  EDIT_APPOINTMENT,
+EDIT_DOCTOR
+} from './actions';
 
 // Initial State
 const initialState = {
   appointments: [],
   doctors: [],
+  responseStatus: {"success": false, "detail": ""}
 }
 
 // Create context
@@ -16,11 +28,18 @@ export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // Actions
+  const logFailure = errDetail => {
+    dispatch({
+      type: LOG_FAILURE,
+      payload: errDetail
+    })
+  }
+
   const getDoctors = () => {
     axiosInstance.get('/doctors/')
     .then(res => {
       dispatch({
-        type: 'GET_DOCTORS',
+        type: GET_DOCTORS,
         payload: res.data
       });
     }).catch(err => console.log(err));
@@ -30,17 +49,17 @@ export const GlobalProvider = ({ children }) => {
     axiosInstance.post('/doctors/', {...doctor})
     .then(res => {
       dispatch({
-        type: 'ADD_DOCTOR',
+        type: ADD_DOCTOR,
         payload: res.data
       });
-    }).catch(err => console.log(err.response));
+    }).catch(err => logFailure(err.response.data.detail));
   }
 
   const removeDoctor = id => {
     axiosInstance.delete(`/doctors/${id}/`)
     .then(res => {
       dispatch({
-        type: 'REMOVE_DOCTOR',
+        type: REMOVE_DOCTOR,
         payload: id
       });
     }).catch(err => console.log(err.response));
@@ -50,7 +69,7 @@ export const GlobalProvider = ({ children }) => {
     axiosInstance.put(`/doctors/${doctor.id}/`, {...doctor})
     .then(res => {
       dispatch({
-        type: 'EDIT_DOCTOR',
+        type: EDIT_DOCTOR,
         payload: res.data
       });
     }).catch(err => console.log(err.response));
@@ -60,7 +79,7 @@ export const GlobalProvider = ({ children }) => {
     axiosInstance.get('/appointments/')
     .then(res => {
       dispatch({
-        type: 'GET_APPOINTMENTS',
+        type: GET_APPOINTMENTS,
         payload: res.data
       });
     }).catch(err => console.log(err.response))
@@ -72,7 +91,7 @@ export const GlobalProvider = ({ children }) => {
       res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
       res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
       dispatch({
-        type: 'ADD_APPOINTMENT',
+        type: ADD_APPOINTMENT,
         payload: res.data
       });
     }).catch(err => console.log(err.response))
@@ -82,7 +101,7 @@ export const GlobalProvider = ({ children }) => {
     axiosInstance.delete(`/appointments/${id}/`)
     .then(res => {
       dispatch({
-        type: 'REMOVE_APPOINTMENT',
+        type: REMOVE_APPOINTMENT,
         payload: id
       });
     }).catch(err => console.log(err.response))
@@ -98,7 +117,7 @@ export const GlobalProvider = ({ children }) => {
       res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
       res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
       dispatch({
-        type: 'EDIT_APPOINTMENT',
+        type: EDIT_APPOINTMENT,
         payload: res.data
       });
     }).catch(err => console.log(err.response))
@@ -108,6 +127,7 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider value={{
       doctors: state.doctors,
       appointments: state.appointments,
+      responseStatus: state.responseStatus,
       addDoctor,
       removeDoctor,
       editDoctor,
