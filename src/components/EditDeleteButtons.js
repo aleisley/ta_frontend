@@ -4,9 +4,9 @@ import { Button } from 'reactstrap';
 
 export const EditDeleteButtons = props => {
   return(
-    <div className="ml-auto">
-      <Link to={ props.editLink } className="btn btn-warning mr-1">Edit</Link>
-      <Button onClick={ props.deleteFunction } color="danger">Delete</Button>
+    <div>
+      <Link to={ props.editLink } className="btn btn-warning mr-1 btn-sm">Edit</Link>
+      <Button onClick={ props.deleteFunction } color="danger" size="sm">Delete</Button>
     </div>
   )
 }
