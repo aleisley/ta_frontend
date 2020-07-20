@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Card, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalState';
+import { axiosInstance } from '../axiosInstance';
 
 import { EditDeleteButtons } from './EditDeleteButtons';
 
@@ -14,6 +15,13 @@ export const DoctorList = () => {
   useEffect(() =>{
     getDoctors();
   }, []);
+
+  const deleteDoctor = id => {
+    axiosInstance.delete(`/doctors/${id}/`)
+      .then(res => {
+        removeDoctor(id);
+      }).catch(err => console.log(err.response))
+  }
 
   const columns = [
     {
@@ -46,7 +54,7 @@ export const DoctorList = () => {
       cell: row => (
         <React.Fragment>
           <EditDeleteButtons editLink={`/doctors/${row.id}/edit`}
-          deleteFunction={() => removeDoctor(row.id)}/>
+          deleteFunction={() => deleteDoctor(row.id)}/>
           <Link className="btn btn-sm btn-primary ml-1" to={`/doctors/${row.id}/appointments/`}>
             Appointments
           </Link>

@@ -1,5 +1,4 @@
 import {
-  LOG_FAILURE,
   GET_APPOINTMENTS,
   GET_DOCTORS,
   REMOVE_APPOINTMENT,
@@ -18,14 +17,12 @@ export default (state, action) => {
       return {
         doctors: [...action.payload],
         appointments: state.appointments,
-        responseStatus: {"success": true, "detail": ""}
       }
 
     case ADD_DOCTOR:
       return {
         doctors: [action.payload, ...state.doctors],
         appointments: state.appointments,
-        responseStatus: {"success": true, "detail": ""}
       }
 
     case REMOVE_DOCTOR:
@@ -34,7 +31,6 @@ export default (state, action) => {
           return doctor.id !== action.payload
         }),
         appointments: state.appointments,
-        responseStatus: {"success": true, "detail": ""}
       }
 
     case EDIT_DOCTOR:
@@ -47,14 +43,12 @@ export default (state, action) => {
       return {
         doctors: updatedDoctors,
         appointments: state.appointments,
-        responseStatus: {"success": true, "detail": ""}
       }
 
     case GET_APPOINTMENTS:
       return {
         doctors: state.doctors,
         appointments: [...action.payload],
-        responseStatus: {"success": true, "detail": ""}
       }
 
     case REMOVE_APPOINTMENT:
@@ -63,14 +57,12 @@ export default (state, action) => {
         appointments: state.appointments.filter(appointment => {
           return appointment.id !== action.payload
         }),
-        responseStatus: {"success": true, "detail": ""}
       }
 
     case ADD_APPOINTMENT:
       return {
         doctors: state.doctors,
         appointments: [action.payload, ...state.appointments],
-        responseStatus: {"success": true, "detail": ""}
       }
 
     case EDIT_APPOINTMENT:
@@ -83,16 +75,8 @@ export default (state, action) => {
       return {
         doctors: state.doctors,
         appointments: updatedAppointments,
-        responseStatus: {"success": true, "detail": ""}
       }
-
-    case LOG_FAILURE:
-      return {
-        doctors: state.doctors,
-        appointments: state.appointments,
-        responseStatus: {"success": false, "detail": action.payload}
-      }
-
+  
     default:
       return state
   }

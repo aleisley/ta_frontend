@@ -6,10 +6,12 @@ import {
   Input,
   Button,
   Card,
-  CardBody
+  CardBody,
+  Alert
 } from 'reactstrap';
 import { Link, useHistory } from "react-router-dom";
 import { GlobalContext } from '../context/GlobalState';
+import { axiosInstance } from '../axiosInstance';
 
 export const EditDoctorForm = props => {
   const {editDoctor, doctors} = useContext(GlobalContext);
@@ -20,6 +22,7 @@ export const EditDoctorForm = props => {
     last_name: '',
     email: ''
   });
+  const [error, setError] = useState('');
   const currentDoctorId = Number(props.doctorID);
 
   useEffect(() => {
@@ -27,9 +30,16 @@ export const EditDoctorForm = props => {
     setSelectedDoctor(selectedDoctor);
   }, [currentDoctorId, doctors])
 
-  const onSubmit = () => {
+  const onSubmit = e => {
+    e.preventDefault();
     editDoctor(selectedDoctor);
-    history.push('/doctors/');
+
+    axiosInstance.put(`/doctors/${selectedDoctor.id}/`, {...selectedDoctor})
+      .then(res => {
+        editDoctor(res);
+        history.push('/doctors/');
+      })
+      .catch(err => setError(err.response.data.detail));
   }
 
   const onChange = e => {
@@ -41,6 +51,11 @@ export const EditDoctorForm = props => {
       <h1 className="mt-2 mb-4 text-center">Edit Doctor</h1>
       <Card className="shadow mb-5">
         <CardBody>
+          {error &&
+            <Alert color="danger">
+              {error}
+            </Alert>
+          }
           <Form onSubmit={ onSubmit }>
             <FormGroup>
               <Label>First Name</Label>

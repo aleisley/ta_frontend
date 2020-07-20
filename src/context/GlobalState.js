@@ -17,7 +17,6 @@ EDIT_DOCTOR
 const initialState = {
   appointments: [],
   doctors: [],
-  responseStatus: {"success": false, "detail": ""}
 }
 
 // Create context
@@ -28,13 +27,6 @@ export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // Actions
-  const logFailure = errDetail => {
-    dispatch({
-      type: LOG_FAILURE,
-      payload: errDetail
-    })
-  }
-
   const getDoctors = () => {
     axiosInstance.get('/doctors/')
     .then(res => {
@@ -45,34 +37,25 @@ export const GlobalProvider = ({ children }) => {
     }).catch(err => console.log(err));
   }
 
-  const addDoctor = doctor => {
-    axiosInstance.post('/doctors/', {...doctor})
-    .then(res => {
-      dispatch({
-        type: ADD_DOCTOR,
-        payload: res.data
-      });
-    }).catch(err => logFailure(err.response.data.detail));
+  const addDoctor = res => {
+    dispatch({
+      type: ADD_DOCTOR,
+      payload: res.data
+    })
   }
 
   const removeDoctor = id => {
-    axiosInstance.delete(`/doctors/${id}/`)
-    .then(res => {
-      dispatch({
-        type: REMOVE_DOCTOR,
-        payload: id
-      });
-    }).catch(err => console.log(err.response));
+    dispatch({
+      type: REMOVE_DOCTOR,
+      payload: id
+    });
   }
 
-  const editDoctor = doctor => {
-    axiosInstance.put(`/doctors/${doctor.id}/`, {...doctor})
-    .then(res => {
-      dispatch({
-        type: EDIT_DOCTOR,
-        payload: res.data
-      });
-    }).catch(err => console.log(err.response));
+  const editDoctor = res => {
+    dispatch({
+      type: EDIT_DOCTOR,
+      payload: res.data
+    })
   }
 
   const getAppointments = () => {
@@ -127,7 +110,6 @@ export const GlobalProvider = ({ children }) => {
     <GlobalContext.Provider value={{
       doctors: state.doctors,
       appointments: state.appointments,
-      responseStatus: state.responseStatus,
       addDoctor,
       removeDoctor,
       editDoctor,

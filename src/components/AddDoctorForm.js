@@ -11,15 +11,17 @@ import {
 } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalState';
+import { axiosInstance } from '../axiosInstance';
 
 export const AddDoctorForm = () => {
-  const { addDoctor, responseStatus } = useContext(GlobalContext);
+  const { addDoctor } = useContext(GlobalContext);
   const history = useHistory();
   const [doctor, setDoctor] = useState({
     'first_name': '',
     'last_name': '',
     'email': ''
   })
+  const [error, setError] = useState('');
 
   const onChange = e => {
     setDoctor({...doctor, [e.target.name]: e.target.value})
@@ -27,23 +29,21 @@ export const AddDoctorForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-      addDoctor(doctor);
+    axiosInstance.post('/doctors/', {...doctor})
+      .then(res => {
+        addDoctor(res);
+        history.push('/doctors/')
+      }).catch(err => setError(err.response.data.detail))
   }
-
-  useEffect(() => {
-    if (responseStatus.success) {
-      history.push('/doctors/')
-    }
-  }, [responseStatus])
 
   return (
     <React.Fragment>
       <h1 className="mt-2 mb-4 text-center">Add Doctor</h1>
       <Card className="shadow">
         <CardBody>
-          {responseStatus.detail &&
+          {error &&
             <Alert color="danger">
-              {responseStatus.detail}
+              {error}
             </Alert>
           }
           <Form onSubmit={ onSubmit }>
