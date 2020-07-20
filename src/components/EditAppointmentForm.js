@@ -7,11 +7,13 @@ import {
   Button,
   Card,
   CardBody,
-  InputGroup
+  InputGroup,
+  Alert
 } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom'
 import ReactDatetime from 'react-datetime';
 import { GlobalContext } from '../context/GlobalState';
+import { axiosInstance } from '../axiosInstance';
 
 export const EditAppointmentForm = props => {
   const { appointments, editAppointment, doctors } = useContext(GlobalContext);
@@ -23,6 +25,7 @@ export const EditAppointmentForm = props => {
     end_dt: '',
     doctor_id: ''
   });
+  const [error, setError] = useState('');
   const currentAppointmentId = Number(props.appointmentID);
 
   useEffect(() => {
@@ -36,8 +39,18 @@ export const EditAppointmentForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    editAppointment(selectedAppointment);
-    history.push('/appointments/');
+    axiosInstance.put(`/appointments/${selectedAppointment.id}/`, {
+        ...selectedAppointment,
+        "start_dt": new Date(selectedAppointment.start_dt).toISOString(),
+        "end_dt": new Date(selectedAppointment.end_dt).toISOString()
+      })
+      .then(res => {
+        res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
+        res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
+        editAppointment(res);
+        history.push('/appointments/');
+      })
+      .catch(err => setError(err.response.data.detail))
   }
 
   return (
@@ -45,6 +58,11 @@ export const EditAppointmentForm = props => {
       <h1 className="mt-2 mb-4 text-center">Edit Appointment</h1>
       <Card className="shadow">
         <CardBody>
+          {error &&
+            <Alert color="danger">
+              {error}
+            </Alert>
+          }
           <Form onSubmit={ onSubmit }>
             <FormGroup>
               <Label>Patient Name</Label>

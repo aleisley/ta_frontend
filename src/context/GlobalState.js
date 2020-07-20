@@ -68,42 +68,25 @@ export const GlobalProvider = ({ children }) => {
     }).catch(err => console.log(err.response))
   }
 
-  const addAppointment = appointment => {
-    axiosInstance.post('/appointments/', {...appointment,})
-    .then(res => {
-      res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
-      res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
-      dispatch({
-        type: ADD_APPOINTMENT,
-        payload: res.data
-      });
-    }).catch(err => console.log(err.response))
+  const addAppointment = res => {
+    dispatch({
+      type: ADD_APPOINTMENT,
+      payload: res.data
+    })
   }
 
   const removeAppointment = id => {
-    axiosInstance.delete(`/appointments/${id}/`)
-    .then(res => {
-      dispatch({
-        type: REMOVE_APPOINTMENT,
-        payload: id
-      });
-    }).catch(err => console.log(err.response))
+    dispatch({
+      type: REMOVE_APPOINTMENT,
+      payload: id
+    })
   }
 
-  const editAppointment = appointment => {
-    axiosInstance.put(`/appointments/${appointment.id}/`, {
-      ...appointment,
-      "start_dt": new Date(appointment.start_dt).toISOString(),
-      "end_dt": new Date(appointment.end_dt).toISOString()
+  const editAppointment = res => {
+    dispatch({
+      type: EDIT_APPOINTMENT,
+      payload: res.data
     })
-    .then(res => {
-      res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
-      res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
-      dispatch({
-        type: EDIT_APPOINTMENT,
-        payload: res.data
-      });
-    }).catch(err => console.log(err.response))
   }
 
   return (

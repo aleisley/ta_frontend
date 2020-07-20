@@ -7,11 +7,13 @@ import {
   Button,
   Card,
   CardBody,
-  InputGroup
+  InputGroup,
+  Alert
 } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom'
 import ReactDatetime from 'react-datetime';
 import { GlobalContext } from '../context/GlobalState';
+import { axiosInstance } from '../axiosInstance';
 
 
 export const AddAppointmentForm = props => {
@@ -23,15 +25,23 @@ export const AddAppointmentForm = props => {
     'start_dt': '',
     'end_dt': '',
     'doctor_id': ''
-  })
+  });
+  const [error, setError] = useState('');
 
   const onChange = e => {
     setAppointment({...appointment, [e.target.name]: e.target.value});
   }
 
-  const onSubmit = () => {
-    addAppointment(appointment);
-    history.push('/appointments/');
+  const onSubmit = e => {
+    e.preventDefault();
+    axiosInstance.post('/appointments/', {...appointment})
+      .then(res => {
+        res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
+        res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
+        addAppointment(res);
+        history.push('/appointments/');
+      })
+      .catch(err => setError(err.response.data.detail));
   }
 
   return (
@@ -39,6 +49,11 @@ export const AddAppointmentForm = props => {
       <h1 className="mt-2 mb-4 text-center">Add Appointment</h1>
       <Card className="shadow mb-5">
         <CardBody>
+          {error &&
+            <Alert color="danger">
+              {error}
+            </Alert>
+          }
           <Form onSubmit={ onSubmit }>
             <FormGroup>
               <Label>Patient Name</Label>

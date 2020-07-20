@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Card, CardBody, Button } from 'reactstrap';
+import { Card, CardBody, Button, Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalState';
 
@@ -9,16 +9,25 @@ import { DateRangePicker } from 'react-dates';
 import { axiosInstance } from '../axiosInstance';
 
 
-export const AppointmentList = props => {
+export const AppointmentList = () => {
   const { appointments, getAppointments, removeAppointment } = useContext(GlobalContext);
   const [startFilterDate, setStartFilterDate] = useState(null);
   const [endFilterDate, setEndFilterDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const [error, setError] = useState('');
 
   // useEffect(() =>{
   //   getAppointments();
   // }, []);
+
+  const deleteAppointment = id => {
+    axiosInstance.delete(`/appointments/${id}/`)
+      .then(res => {
+        removeAppointment(id);
+      })
+      .catch(err => setError(err.response.data.detail));
+  }
 
   const columns = [
     {
@@ -56,7 +65,7 @@ export const AppointmentList = props => {
       selector: 'actions',
       cell: row => (
         <EditDeleteButtons editLink={`/appointments/${row.id}/edit`}
-        deleteFunction={() => removeAppointment(row.id)}/>
+        deleteFunction={() => deleteAppointment(row.id)}/>
       )
     }
   ]
@@ -102,6 +111,11 @@ export const AppointmentList = props => {
       </div>
       <Card className="shadow mb-5">
         <CardBody>
+          {error &&
+            <Alert color="danger">
+              {error}
+            </Alert>
+          }
           <DataTable
             columns={ columns }
             data={ filteredAppointments.length ? filteredAppointments : appointments }
