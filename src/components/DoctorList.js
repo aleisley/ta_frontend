@@ -11,9 +11,9 @@ import DataTable from 'react-data-table-component';
 export const DoctorList = () => {
   const { doctors, removeDoctor, getDoctors } = useContext(GlobalContext);
 
-  // useEffect(() =>{
-  //   getDoctors();
-  // }, []);
+  useEffect(() =>{
+    getDoctors();
+  }, []);
 
   const columns = [
     {
@@ -47,22 +47,23 @@ export const DoctorList = () => {
     }
   ];
 
-
   return (
-    <Card className="shadow">
-      <CardBody>
-        <DataTable
-          title="Doctors"
-          columns={ columns }
-          data={ doctors }
-          pagination={ true }
-          actions={
-            <Link className="btn btn-success btn-sm" to="/doctors/create/">
-              Add Doctor
-            </Link>
-          }
-        />
-      </CardBody>
-    </Card>
+    <React.Fragment>
+      <h1 className="mt-2 mb-4 text-center">Doctors</h1>
+      <Card className="shadow">
+        <CardBody>
+          <DataTable
+            columns={ columns }
+            data={ doctors }
+            pagination={ true }
+            actions={
+              <Link className="btn btn-success btn-sm" to="/doctors/create/">
+                Add Doctor
+              </Link>
+            }
+          />
+        </CardBody>
+      </Card>
+    </React.Fragment>
   )
 }

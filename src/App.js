@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 
-import { EditAppointmentForm } from './components/EditAppointmentForm';
 import { GlobalProvider } from './context/GlobalState';
 
 import { AddDoctor } from './views/AddDoctor';
@@ -10,6 +9,7 @@ import { EditDoctor } from './views/EditDoctor';
 import { Doctors } from './views/Doctors';
 import { Appointments } from './views/Appointments';
 import { AddAppointment } from './views/AddAppointment';
+import { EditAppointment } from './views/EditAppointment';
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
             <Route exact path="/doctors/:id/edit/" component={ EditDoctor } />
             <Route exact path="/appointments/" component={ Appointments } />
             <Route exact path="/appointments/create/" component={ AddAppointment } />
-            <Route exact path="/appointments/:id/edit/" component={ EditAppointmentForm } />
+            <Route exact path="/appointments/:id/edit/" component={ EditAppointment } />
           </Switch>
         </BrowserRouter>
       </GlobalProvider>

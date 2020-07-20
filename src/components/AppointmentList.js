@@ -10,9 +10,9 @@ import DataTable from 'react-data-table-component';
 export const AppointmentList = () => {
   const { appointments, getAppointments, removeAppointment } = useContext(GlobalContext);
 
-  // useEffect(() =>{
-  //   getAppointments();
-  // }, []);
+  useEffect(() =>{
+    getAppointments();
+  }, []);
 
   const columns = [
     {
@@ -55,20 +55,22 @@ export const AppointmentList = () => {
   ]
 
   return (
-    <Card className="shadow">
-      <CardBody>
-        <DataTable
-          title="Appointments"
-          columns={ columns }
-          data={ appointments }
-          pagination={ true }
-          actions={
-            <Link className="btn btn-success btn-sm" to="/appointments/create/">
-              Add Appointment
-            </Link>
-          }
-        />
-      </CardBody>
-    </Card>
+    <React.Fragment>
+      <h1 className="mt-2 mb-4 text-center">Appointments</h1>
+      <Card className="shadow">
+        <CardBody>
+          <DataTable
+            columns={ columns }
+            data={ appointments }
+            pagination={ true }
+            actions={
+              <Link className="btn btn-success btn-sm" to="/appointments/create/">
+                Add Appointment
+              </Link>
+            }
+          />
+        </CardBody>
+      </Card>
+    </React.Fragment>
   )
 }

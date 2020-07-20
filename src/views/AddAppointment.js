@@ -1,17 +1,12 @@
 import React from 'react';
 
-import { Container } from 'reactstrap';
-
-import { GlobalNavbar } from '../components/Navbar';
+import { NavAndFooter } from '../components/NavAndFooter';
 import { AddAppointmentForm } from '../components/AddAppointmentForm';
 
 export const AddAppointment = () => {
   return (
-    <React.Fragment>
-      <GlobalNavbar />
-      <Container>
-        <AddAppointmentForm />
-      </Container>
-    </React.Fragment>
+    <NavAndFooter>
+      <AddAppointmentForm />
+    </NavAndFooter>
   )
 }

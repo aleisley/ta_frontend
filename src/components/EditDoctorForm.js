@@ -37,43 +37,46 @@ export const EditDoctorForm = props => {
   }
 
   return (
-    <Card className="shadow">
-      <CardBody>
-        <Form onSubmit={ onSubmit }>
-          <FormGroup>
-            <Label>First Name</Label>
-            <Input
-              type="text"
-              value={ selectedDoctor ? selectedDoctor.first_name : '' }
-              onChange={ onChange }
-              name="first_name"
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label>Last Name</Label>
-            <Input
-              type="text"
-              value={ selectedDoctor.last_name }
-              onChange={ onChange }
-              name="last_name"
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label>Email</Label>
-            <Input
-              type="email"
-              value={ selectedDoctor.email }
-              onChange={ onChange }
-              name="email"
-              required
-            />
-          </FormGroup>
-          <Button type="submit">Submit</Button>
-          <Link className="btn btn-danger ml-2" to="/doctors/">Cancel</Link>
-        </Form>
-      </CardBody>
-    </Card>
+    <React.Fragment>
+      <h1 className="mt-2 mb-4 text-center">Edit Doctor</h1>
+      <Card className="shadow mb-5">
+        <CardBody>
+          <Form onSubmit={ onSubmit }>
+            <FormGroup>
+              <Label>First Name</Label>
+              <Input
+                type="text"
+                value={ selectedDoctor.first_name }
+                onChange={ onChange }
+                name="first_name"
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Last Name</Label>
+              <Input
+                type="text"
+                value={ selectedDoctor.last_name }
+                onChange={ onChange }
+                name="last_name"
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Email</Label>
+              <Input
+                type="email"
+                value={ selectedDoctor.email }
+                onChange={ onChange }
+                name="email"
+                required
+              />
+            </FormGroup>
+            <Button type="submit">Submit</Button>
+            <Link className="btn btn-danger ml-2" to="/doctors/">Cancel</Link>
+          </Form>
+        </CardBody>
+      </Card>
+    </React.Fragment>
   )
 }

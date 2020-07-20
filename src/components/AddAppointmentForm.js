@@ -35,73 +35,76 @@ export const AddAppointmentForm = () => {
   }
 
   return (
-    <Card className="shadow">
-      <CardBody>
-        <Form onSubmit={ onSubmit }>
-          <FormGroup>
-            <Label>Patient Name</Label>
-            <Input
-              type="text"
-              name="patient_name"
-              value={ appointment.patient_name }
-              onChange={ onChange }
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label>Comment</Label>
-            <Input
-              type="text"
-              name="comment"
-              value={ appointment.comment }
-              onChange={ onChange }
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label>Start Datetime</Label>
-            <InputGroup>
-              <ReactDatetime
-                timeFormat={true}
-                value={ appointment.start_dt }
-                onChange={ value => setAppointment({...appointment, "start_dt": value}) }
+    <React.Fragment>
+      <h1 className="mt-2 mb-4 text-center">Add Appointment</h1>
+      <Card className="shadow mb-5">
+        <CardBody>
+          <Form onSubmit={ onSubmit }>
+            <FormGroup>
+              <Label>Patient Name</Label>
+              <Input
+                type="text"
+                name="patient_name"
+                value={ appointment.patient_name }
+                onChange={ onChange }
                 required
               />
-            </InputGroup>
-          </FormGroup>
-          <FormGroup>
-            <Label>End Datetime</Label>
-            <InputGroup>
-              <ReactDatetime
-                timeFormat={true}
-                value={ appointment.end_dt }
-                onChange={ value => setAppointment({...appointment, "end_dt": value}) }
+            </FormGroup>
+            <FormGroup>
+              <Label>Comment</Label>
+              <Input
+                type="text"
+                name="comment"
+                value={ appointment.comment }
+                onChange={ onChange }
                 required
               />
-            </InputGroup>
-          </FormGroup>
-          <FormGroup>
-            <Label>Doctor</Label>
-            <Input
-              type="select"
-              name="doctor_id"
-              defaultValue={'DEFAULT'}
-              onChange={e => setAppointment({...appointment, "doctor_id": e.target.value})}
-              required
-            >
-              <option value="DEFAULT" disabled>Choose a doctor ...</option>
-              {doctors.map(doctor => (
-                <option value={ doctor.id } key={ doctor.id }>
-                  { doctor.first_name } { doctor.last_name }
-                </option>
-              ))}
-            </Input>
-          </FormGroup>
-          <Button type="submit">Submit</Button>
-          <Link className="btn btn-danger ml-2" to="/appointments/">Cancel</Link>
-        </Form>
-      </CardBody>
-    </Card>
+            </FormGroup>
+            <FormGroup>
+              <Label>Start Datetime</Label>
+              <InputGroup>
+                <ReactDatetime
+                  timeFormat={true}
+                  value={ appointment.start_dt }
+                  onChange={ value => setAppointment({...appointment, "start_dt": value}) }
+                  required
+                />
+              </InputGroup>
+            </FormGroup>
+            <FormGroup>
+              <Label>End Datetime</Label>
+              <InputGroup>
+                <ReactDatetime
+                  timeFormat={true}
+                  value={ appointment.end_dt }
+                  onChange={ value => setAppointment({...appointment, "end_dt": value}) }
+                  required
+                />
+              </InputGroup>
+            </FormGroup>
+            <FormGroup>
+              <Label>Doctor</Label>
+              <Input
+                type="select"
+                name="doctor_id"
+                defaultValue={'DEFAULT'}
+                onChange={e => setAppointment({...appointment, "doctor_id": e.target.value})}
+                required
+              >
+                <option value="DEFAULT" disabled>Choose a doctor ...</option>
+                {doctors.map(doctor => (
+                  <option value={ doctor.id } key={ doctor.id }>
+                    { doctor.first_name } { doctor.last_name }
+                  </option>
+                ))}
+              </Input>
+            </FormGroup>
+            <Button type="submit">Submit</Button>
+            <Link className="btn btn-danger ml-2" to="/appointments/">Cancel</Link>
+          </Form>
+        </CardBody>
+      </Card>
+    </React.Fragment>
   )
 }
 

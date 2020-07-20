@@ -1,16 +1,12 @@
 import React from 'react'
-import { Container } from 'reactstrap';
 
 import { AddDoctorForm } from '../components/AddDoctorForm';
-import { GlobalNavbar } from '../components/Navbar';
+import { NavAndFooter } from '../components/NavAndFooter';
 
 export const AddDoctor = () => {
   return (
-    <React.Fragment>
-      <GlobalNavbar />
-      <Container>
-        <AddDoctorForm />
-      </Container>
-    </React.Fragment>
+    <NavAndFooter>
+      <AddDoctorForm />
+    </NavAndFooter>
   )
 }
