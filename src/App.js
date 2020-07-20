@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import { EditDoctor } from './views/EditDoctor';
-import { AppointmentList } from './components/AppointmentList';
-import { AddAppointmentForm } from './components/AddAppointmentForm';
+
 import { EditAppointmentForm } from './components/EditAppointmentForm';
 import { GlobalProvider } from './context/GlobalState';
 
 import { AddDoctor } from './views/AddDoctor';
+import { EditDoctor } from './views/EditDoctor';
 import { Doctors } from './views/Doctors';
+import { Appointments } from './views/Appointments';
+import { AddAppointment } from './views/AddAppointment';
 
 function App() {
   return (
@@ -19,8 +20,8 @@ function App() {
             <Route exact path="/doctors/create/" component={ AddDoctor } />
             <Route exact path="/doctors/" component={ Doctors } />
             <Route exact path="/doctors/:id/edit/" component={ EditDoctor } />
-            <Route exact path="/appointments/" component={ AppointmentList } />
-            <Route exact path="/appointments/create/" component={ AddAppointmentForm } />
+            <Route exact path="/appointments/" component={ Appointments } />
+            <Route exact path="/appointments/create/" component={ AddAppointment } />
             <Route exact path="/appointments/:id/edit/" component={ EditAppointmentForm } />
           </Switch>
         </BrowserRouter>

@@ -15,7 +15,7 @@ import { GlobalContext } from '../context/GlobalState';
 
 
 export const AddAppointmentForm = () => {
-  const { addAppointment, doctors, getDoctors } = useContext(GlobalContext);
+  const { addAppointment, doctors } = useContext(GlobalContext);
   const history = useHistory();
   const [appointment, setAppointment] = useState({
     'patient_name': '',
@@ -33,10 +33,6 @@ export const AddAppointmentForm = () => {
     addAppointment(appointment);
     history.push('/appointments/');
   }
-
-  useEffect(() => {
-    getDoctors()
-  }, [])
 
   return (
     <Card className="shadow">
@@ -102,7 +98,7 @@ export const AddAppointmentForm = () => {
             </Input>
           </FormGroup>
           <Button type="submit">Submit</Button>
-          <Link className="btn btn-danger ml-2" to="/">Cancel</Link>
+          <Link className="btn btn-danger ml-2" to="/appointments/">Cancel</Link>
         </Form>
       </CardBody>
     </Card>

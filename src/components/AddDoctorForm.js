@@ -66,7 +66,7 @@ export const AddDoctorForm = () => {
             />
           </FormGroup>
           <Button type="submit">Submit</Button>
-          <Link className="btn btn-danger ml-2" to="/">Cancel</Link>
+          <Link className="btn btn-danger ml-2" to="/doctors/">Cancel</Link>
         </Form>
       </CardBody>
     </Card>

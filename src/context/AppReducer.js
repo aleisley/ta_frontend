@@ -3,19 +3,22 @@ export default (state, action) => {
 
     case 'GET_DOCTORS':
       return {
-        doctors: [...action.payload]
+        doctors: [...action.payload],
+        appointments: state.appointments
       }
 
     case 'ADD_DOCTOR':
       return {
-        doctors: [action.payload, ...state.doctors]
+        doctors: [action.payload, ...state.doctors],
+        appointments: state.appointments
       }
 
     case 'REMOVE_DOCTOR':
       return {
         doctors: state.doctors.filter(doctor => {
           return doctor.id !== action.payload
-        })
+        }),
+        appointments: state.appointments
       }
 
     case 'EDIT_DOCTOR':
@@ -26,19 +29,28 @@ export default (state, action) => {
       });
 
       return {
-        doctors: updatedDoctors
+        doctors: updatedDoctors,
+        appointments: state.appointments
       }
 
     case 'GET_APPOINTMENTS':
       return {
+        doctors: state.doctors,
         appointments: [...action.payload]
       }
 
     case 'REMOVE_APPOINTMENT':
       return {
+        doctors: state.doctors,
         appointments: state.appointments.filter(appointment => {
           return appointment.id !== action.payload
         })
+      }
+
+    case 'ADD_APPOINTMENT':
+      return {
+        doctors: state.doctors,
+        appointments: [action.payload, ...state.appointments]
       }
 
     case 'EDIT_APPOINTMENT':
@@ -49,6 +61,7 @@ export default (state, action) => {
       });
 
       return {
+        doctors: state.doctors,
         appointments: updatedAppointments
       }
 

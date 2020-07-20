@@ -4,8 +4,8 @@ import { axiosInstance } from '../axiosInstance';
 
 // Initial State
 const initialState = {
+  appointments: [],
   doctors: [],
-  appointments: []
 }
 
 // Create context
@@ -14,6 +14,7 @@ export const GlobalContext = createContext(initialState);
 // Provider Component
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+  console.log(state)
 
   // Actions
   const getDoctors = () => {
@@ -95,7 +96,7 @@ export const GlobalProvider = ({ children }) => {
     .then(res => {
       dispatch({
         type: 'EDIT_APPOINTMENT',
-        payload: appointment
+        payload: res.data
       });
     }).catch(err => console.log(err.response))
   }

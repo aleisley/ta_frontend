@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Button,
   NavbarBrand,
   Navbar,
   NavItem,
@@ -33,10 +32,10 @@ export const GlobalNavbar = props => {
             <Collapse isOpen={ isOpen } navbar>
               <Nav className="mr-auto" navbar>
                 <NavItem>
-                  <NavLink href="/doctors/" className="nav-link-icon">Doctors</NavLink>
+                  <NavLink to="/doctors/" className="nav-link-icon" tag={ Link }>Doctors</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/appointments/" className="nav-link-icon">Appointments</NavLink>
+                  <NavLink to="/appointments/" className="nav-link-icon" tag={ Link }>Appointments</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
