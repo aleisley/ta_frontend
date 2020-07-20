@@ -61,6 +61,10 @@ export const GlobalProvider = ({ children }) => {
   const getAppointments = () => {
     axiosInstance.get('/appointments/')
     .then(res => {
+      res.data.map(datum => {
+        datum.start_dt = new Date(`${datum.start_dt}Z`).toLocaleString();
+        datum.end_dt = new Date(`${datum.end_dt}Z`).toLocaleString();
+      })
       dispatch({
         type: GET_APPOINTMENTS,
         payload: res.data

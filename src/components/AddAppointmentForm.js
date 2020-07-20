@@ -34,14 +34,18 @@ export const AddAppointmentForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    axiosInstance.post('/appointments/', {...appointment})
-      .then(res => {
-        res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
-        res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
-        addAppointment(res);
-        history.push('/appointments/');
-      })
-      .catch(err => setError(err.response.data.detail));
+    if (!appointment.doctor_id) {
+      setError('Please fill out the Doctor for the appointment.')
+    } else {
+      axiosInstance.post('/appointments/', {...appointment})
+        .then(res => {
+          res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
+          res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
+          addAppointment(res);
+          history.push('/appointments/');
+        })
+        .catch(err => setError(err.response.data.detail));
+    }
   }
 
   return (

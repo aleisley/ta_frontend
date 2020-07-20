@@ -9,6 +9,7 @@ import { Doctors } from './views/Doctors';
 import { Appointments } from './views/Appointments';
 import { AddAppointment } from './views/AddAppointment';
 import { EditAppointment } from './views/EditAppointment';
+import Landing from './views/Landing';
 
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
@@ -19,6 +20,7 @@ function App() {
       <GlobalProvider>
         <BrowserRouter>
           <Switch>
+            <Route exact path="/" component={ Landing } />
             <Route exact path="/doctors/create/" component={ AddDoctor } />
             <Route exact path="/doctors/" component={ Doctors } />
             <Route exact path="/doctors/:id/edit/" component={ EditDoctor } />

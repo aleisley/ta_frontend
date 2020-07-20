@@ -11,7 +11,7 @@ import {
   Container
 } from 'reactstrap';
 
-export const GlobalNavbar = props => {
+export const GlobalNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);

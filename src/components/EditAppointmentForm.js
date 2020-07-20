@@ -39,18 +39,22 @@ export const EditAppointmentForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    axiosInstance.put(`/appointments/${selectedAppointment.id}/`, {
-        ...selectedAppointment,
-        "start_dt": new Date(selectedAppointment.start_dt).toISOString(),
-        "end_dt": new Date(selectedAppointment.end_dt).toISOString()
-      })
-      .then(res => {
-        res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
-        res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
-        editAppointment(res);
-        history.push('/appointments/');
-      })
-      .catch(err => setError(err.response.data.detail))
+    if (!selectedAppointment.doctor_id) {
+      setError('Please fill out the Doctor for the appointment.');
+    } else {
+      axiosInstance.put(`/appointments/${selectedAppointment.id}/`, {
+          ...selectedAppointment,
+          "start_dt": new Date(selectedAppointment.start_dt).toISOString(),
+          "end_dt": new Date(selectedAppointment.end_dt).toISOString()
+        })
+        .then(res => {
+          res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
+          res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
+          editAppointment(res);
+          history.push('/appointments/');
+        })
+        .catch(err => setError(err.response.data.detail))
+    }
   }
 
   return (

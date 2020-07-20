@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Card, CardBody } from 'reactstrap';
+import { Card, CardBody, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalState';
 import { axiosInstance } from '../axiosInstance';
@@ -11,10 +11,6 @@ import DataTable from 'react-data-table-component';
 
 export const DoctorList = () => {
   const { doctors, removeDoctor, getDoctors } = useContext(GlobalContext);
-
-  useEffect(() =>{
-    getDoctors();
-  }, []);
 
   const deleteDoctor = id => {
     axiosInstance.delete(`/doctors/${id}/`)
@@ -45,7 +41,8 @@ export const DoctorList = () => {
     {
       name: 'Email',
       selector: 'email',
-      sortable: true
+      sortable: true,
+      width: '24rem'
     },
     {
       name: 'Actions',
@@ -55,9 +52,6 @@ export const DoctorList = () => {
         <React.Fragment>
           <EditDeleteButtons editLink={`/doctors/${row.id}/edit`}
           deleteFunction={() => deleteDoctor(row.id)}/>
-          <Link className="btn btn-sm btn-primary ml-1" to={`/doctors/${row.id}/appointments/`}>
-            Appointments
-          </Link>
         </React.Fragment>
       )
     }
@@ -73,9 +67,12 @@ export const DoctorList = () => {
             data={ doctors }
             pagination={ true }
             actions={
-              <Link className="btn btn-success btn-sm" to="/doctors/create/">
-                Add Doctor
-              </Link>
+              [
+                <Button color="primary" size="sm" onClick={ getDoctors }>Refresh</Button>,
+                <Link className="btn btn-success btn-sm" to="/doctors/create/">
+                  Add Doctor
+                </Link>,
+              ]
             }
           />
         </CardBody>

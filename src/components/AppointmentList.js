@@ -17,10 +17,6 @@ export const AppointmentList = () => {
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [error, setError] = useState('');
 
-  // useEffect(() =>{
-  //   getAppointments();
-  // }, []);
-
   const deleteAppointment = id => {
     axiosInstance.delete(`/appointments/${id}/`)
       .then(res => {
@@ -89,6 +85,14 @@ export const AppointmentList = () => {
       .catch(err => console.log(err))
   }
 
+  const refreshAppointments = () => {
+    getAppointments();
+    setFilteredAppointments([]);
+    setStartFilterDate(null);
+    setEndFilterDate(null);
+    setFocusedInput(null);
+  }
+
   return (
     <React.Fragment>
       <h1 className="mt-2 mb-4 text-center">Appointments</h1>
@@ -121,9 +125,12 @@ export const AppointmentList = () => {
             data={ filteredAppointments.length ? filteredAppointments : appointments }
             pagination={ true }
             actions={
-              <Link className="btn btn-success btn-sm" to="/appointments/create/">
-                Add Appointment
-              </Link>
+              [
+                <Button color="primary" size="sm" onClick={ refreshAppointments }>Refresh</Button>,
+                <Link className="btn btn-success btn-sm" to="/appointments/create/">
+                  Add Appointment
+                </Link>,
+              ]
             }
           />
         </CardBody>
