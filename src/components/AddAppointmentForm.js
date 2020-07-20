@@ -64,6 +64,7 @@ export const AddAppointmentForm = () => {
               <Label>Start Datetime</Label>
               <InputGroup>
                 <ReactDatetime
+                  dateFormat={true}
                   timeFormat={true}
                   value={ appointment.start_dt }
                   onChange={ value => setAppointment({...appointment, "start_dt": value}) }
@@ -75,6 +76,7 @@ export const AddAppointmentForm = () => {
               <Label>End Datetime</Label>
               <InputGroup>
                 <ReactDatetime
+                  dateformat={true}
                   timeFormat={true}
                   value={ appointment.end_dt }
                   onChange={ value => setAppointment({...appointment, "end_dt": value}) }

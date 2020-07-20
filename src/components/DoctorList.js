@@ -20,16 +20,19 @@ export const DoctorList = () => {
       name: '#',
       selector: 'id',
       sortable: true,
+      width: '12rem'
     },
     {
       name: 'First Name',
       selector: 'first_name',
       sortable: true,
+      width: '12rem'
     },
     {
       name: 'Last Name',
       selector: 'last_name',
       sortable: true,
+      width: '12rem'
     },
     {
       name: 'Email',
@@ -41,8 +44,13 @@ export const DoctorList = () => {
       selector: 'actions',
       left: true,
       cell: row => (
-        <EditDeleteButtons editLink={`/doctors/${row.id}/edit`}
-        deleteFunction={() => removeDoctor(row.id)}/>
+        <React.Fragment>
+          <EditDeleteButtons editLink={`/doctors/${row.id}/edit`}
+          deleteFunction={() => removeDoctor(row.id)}/>
+          <Link className="btn btn-sm btn-primary ml-1" to="/doctors/:id/appointments">
+            Appointments
+          </Link>
+        </React.Fragment>
       )
     }
   ];

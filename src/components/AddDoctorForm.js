@@ -11,7 +11,7 @@ import {
 import { Link, useHistory } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalState';
 
-export const AddDoctorForm = () => {
+export const AddDoctorForm = props => {
   const { addDoctor } = useContext(GlobalContext);
   const history = useHistory();
   const [doctor, setDoctor] = useState({
@@ -60,6 +60,7 @@ export const AddDoctorForm = () => {
               <Input
                 type="email"
                 name="email"
+                value={ doctor.email }
                 onChange={ onChange }
                 required
               />

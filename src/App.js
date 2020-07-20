@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-
 import { GlobalProvider } from './context/GlobalState';
 
 import { AddDoctor } from './views/AddDoctor';
@@ -10,6 +9,9 @@ import { Doctors } from './views/Doctors';
 import { Appointments } from './views/Appointments';
 import { AddAppointment } from './views/AddAppointment';
 import { EditAppointment } from './views/EditAppointment';
+
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
 
 function App() {
   return (

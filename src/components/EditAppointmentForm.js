@@ -34,7 +34,8 @@ export const EditAppointmentForm = props => {
     setSelectedAppointment({...selectedAppointment, [e.target.name]: e.target.value});
   }
 
-  const onSubmit = () => {
+  const onSubmit = e => {
+    e.preventDefault();
     editAppointment(selectedAppointment);
     history.push('/appointments/');
   }

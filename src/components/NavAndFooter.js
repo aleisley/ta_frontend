@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container } from 'reactstrap';
 
 import { SimpleFooter } from '../components/Footer';
 import { GlobalNavbar } from '../components/Navbar';
@@ -8,9 +7,9 @@ export const NavAndFooter = props => {
   return (
     <div id="inBetween" className="d-flex flex-column justify-content-between">
       <GlobalNavbar />
-      <Container>
+      <div className="offset-2 col-8">
         { props.children }
-      </Container>
+      </div>
       <SimpleFooter />
     </div>
   )

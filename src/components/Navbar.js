@@ -26,7 +26,7 @@ export const GlobalNavbar = props => {
         >
           <Container>
             <NavbarBrand className="mr-lg-5" to="/" tag={ Link }>
-              Hello
+              DoctorApp
             </NavbarBrand>
             <NavbarToggler onClick={ toggle } />
             <Collapse isOpen={ isOpen } navbar>

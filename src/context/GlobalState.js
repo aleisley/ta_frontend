@@ -67,12 +67,10 @@ export const GlobalProvider = ({ children }) => {
   }
 
   const addAppointment = appointment => {
-    axiosInstance.post('/appointments/', {
-      ...appointment,
-      "start_dt": appointment.start_dt.utc().toDate(),
-      "end_dt": appointment.end_dt.utc().toDate()
-    })
+    axiosInstance.post('/appointments/', {...appointment,})
     .then(res => {
+      res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
+      res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
       dispatch({
         type: 'ADD_APPOINTMENT',
         payload: res.data
@@ -91,8 +89,14 @@ export const GlobalProvider = ({ children }) => {
   }
 
   const editAppointment = appointment => {
-    axiosInstance.put(`/appointments/${appointment.id}`)
+    axiosInstance.put(`/appointments/${appointment.id}/`, {
+      ...appointment,
+      "start_dt": new Date(appointment.start_dt).toISOString(),
+      "end_dt": new Date(appointment.end_dt).toISOString()
+    })
     .then(res => {
+      res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
+      res.data.end_dt = new Date(`${res.data.end_dt}Z`).toLocaleString();
       dispatch({
         type: 'EDIT_APPOINTMENT',
         payload: res.data

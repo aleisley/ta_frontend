@@ -6,7 +6,7 @@ import { NavAndFooter } from '../components/NavAndFooter';
 export const EditAppointment = props => {
   return (
     <NavAndFooter>
-      <EditAppointmentForm appointmentID={ props.match.params.id }/>
+      <EditAppointmentForm appointmentID={ props.match.params.id } />
     </NavAndFooter>
   )
 }
