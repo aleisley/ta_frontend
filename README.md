@@ -1,72 +1,78 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Project Title
 
-In the project directory, you can run:
+Frontend project for the application.
 
-## If you're running the project for the first time, `yarn install`
+## Getting Started
 
-Installs all dependencies listed in package.json
+These instructions will get you a copy of the project up and running on your local machine for development purposes.
 
-### `yarn start`
+Also note that it is adviseable to run the backend portion of the app first.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+You need to have nodejs installed on your machine.
 
-### `yarn test`
+```
+NodeJS
+```
+You need to have nodejs installed on your machine. If you don't please go to https://nodejs.org and download the latest version. We need this because we will use `yarn` (package manager) to manage all the dependencies and packages in this project.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+Terminal
+```
+We need the terminal to run commands. For unix users, terminals are easily available. For windows users, access either your Windows command line (search > cmd > right-click > run as administrator) OR Windows PowerShell (Search > Powershell > right-click > run as administration)
 
-### `yarn build`
+### Installing
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+After verifying if the prerequisites are met, here are additional stuff you need to run the project.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Install NodeJS
+```
+Install nodejs using this link https://nodejs.org. Follow the guide accdg to your OS.
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Go to the git repository
+```
+https://github.com/aleisley/ta_frontend
+```
 
-### `yarn eject`
+Setup ssh for your account using the link below
+```
+https://docs.github.com/en/enterprise/2.15/user/articles/adding-a-new-ssh-key-to-your-github-account
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Clone the repo to a directory of your choosing.
+```
+$ git clone git@github.com:aleisley/ta_frontend.git
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Note: you don't have to type the `$` sign. It just signifies that it's the command entered in the command line.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Install yarn package manager.
+```
+Go here https://classic.yarnpkg.com/en/docs/install/#windows-stable and choose your operating system.
+Follow the guide for your OS.
+```
 
-## Learn More
+In your command line `cd` inside the project directory
+```
+$ cd <where you saved>/ta_frontend
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Since yarn is already installed, we want to install all of our node modules.
+```
+$ yarn install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Run the project using yarn
+```
+$ yarn start run
+```
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Note: If you're using linux and run into a problem with ENOSPC, do this
+```
+$ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+```
