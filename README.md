@@ -33,14 +33,19 @@ Install NodeJS
 Install nodejs using this link https://nodejs.org. Follow the guide accdg to your OS.
 ```
 
+Install Git by following the guide in this link.
+```
+https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+```
+
+Setup ssh for your account using the link below (only if you haven't set it up yet)
+```
+https://docs.github.com/en/enterprise/2.15/user/articles/adding-a-new-ssh-key-to-your-github-account
+```
+
 Go to the git repository
 ```
 https://github.com/aleisley/ta_frontend
-```
-
-Setup ssh for your account using the link below
-```
-https://docs.github.com/en/enterprise/2.15/user/articles/adding-a-new-ssh-key-to-your-github-account
 ```
 
 Clone the repo to a directory of your choosing.
@@ -56,6 +61,9 @@ Install yarn package manager.
 Go here https://classic.yarnpkg.com/en/docs/install/#windows-stable and choose your operating system.
 Follow the guide for your OS.
 ```
+
+### Running the project
+Once all essential stuff are installed, go through the ones below to run the project. If successful, it will open a new browser page to http://localhost:3000
 
 In your command line `cd` inside the project directory
 ```
