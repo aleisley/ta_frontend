@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Theme
+
+Here's the link to all the wonderful themes: https://www.creative-tim.com/
+This project used the Argon one fyi
+
 ## Available Scripts
 
 In the project directory, you can run:
