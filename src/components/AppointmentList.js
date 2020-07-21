@@ -15,6 +15,7 @@ export const AppointmentList = () => {
   const [endFilterDate, setEndFilterDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
+  const [resultsFiltered, setResultsFiltered] = useState(false);
   const [error, setError] = useState('');
 
   const deleteAppointment = id => {
@@ -81,6 +82,7 @@ export const AppointmentList = () => {
           datum.end_dt = new Date(`${datum.end_dt}Z`).toLocaleString();
         })
         setFilteredAppointments(res.data);
+        setResultsFiltered(true);
       })
       .catch(err => console.log(err))
   }
@@ -92,6 +94,7 @@ export const AppointmentList = () => {
     setStartFilterDate(null);
     setEndFilterDate(null);
     setFocusedInput(null);
+    setResultsFiltered(false);
   }
 
   return (
@@ -123,7 +126,7 @@ export const AppointmentList = () => {
           }
           <DataTable
             columns={ columns }
-            data={ filteredAppointments.length ? filteredAppointments : appointments }
+            data={ resultsFiltered ? filteredAppointments : appointments }
             pagination={ true }
             actions={
               [
