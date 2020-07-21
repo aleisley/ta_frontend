@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Form,
   FormGroup,
@@ -33,7 +33,8 @@ export const AddDoctorForm = () => {
       .then(res => {
         addDoctor(res);
         history.push('/doctors/')
-      }).catch(err => setError(err.response.data.detail))
+      })
+      .catch(err => setError(err.response.data.detail))
   }
 
   return (

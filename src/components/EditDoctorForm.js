@@ -32,7 +32,6 @@ export const EditDoctorForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    editDoctor(selectedDoctor);
 
     axiosInstance.put(`/doctors/${selectedDoctor.id}/`, {...selectedDoctor})
       .then(res => {

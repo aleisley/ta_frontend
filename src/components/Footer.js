@@ -28,6 +28,7 @@ export const SimpleFooter = () => {
                 href="https://www.linkedin.com/in/anthon-van-asares-61a830153/"
                 id="tooltip475038074"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <span className="btn-inner--icon">
                   <i className="fa fa-linkedin" />
@@ -42,6 +43,7 @@ export const SimpleFooter = () => {
                 href="https://github.com/aleisley"
                 id="tooltip495507257"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <span className="btn-inner--icon">
                   <i className="fa fa-github" />
@@ -60,6 +62,7 @@ export const SimpleFooter = () => {
                 <a
                   href="https://www.linkedin.com/in/anthon-van-asares-61a830153/"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   Anthon Van Asares
                 </a>

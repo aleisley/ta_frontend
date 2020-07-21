@@ -2,7 +2,6 @@ import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 import { axiosInstance } from '../axiosInstance';
 import {
-  LOG_FAILURE,
   GET_APPOINTMENTS,
   GET_DOCTORS,
   REMOVE_APPOINTMENT,

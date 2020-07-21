@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Card, CardBody, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalState';
@@ -10,7 +10,7 @@ import DataTable from 'react-data-table-component';
 
 
 export const DoctorList = () => {
-  const { doctors, removeDoctor, getDoctors } = useContext(GlobalContext);
+  const { doctors, removeDoctor, getDoctors, getAppointments } = useContext(GlobalContext);
 
   const deleteDoctor = id => {
     axiosInstance.delete(`/doctors/${id}/`)
@@ -57,6 +57,11 @@ export const DoctorList = () => {
     }
   ];
 
+  const refresh = () => {
+    getDoctors();
+    getAppointments();
+  }
+
   return (
     <React.Fragment>
       <h1 className="mt-2 mb-4 text-center">Doctors</h1>
@@ -68,7 +73,7 @@ export const DoctorList = () => {
             pagination={ true }
             actions={
               [
-                <Button color="primary" size="sm" onClick={ getDoctors }>Refresh</Button>,
+                <Button color="primary" size="sm" onClick={ refresh }>Refresh</Button>,
                 <Link className="btn btn-success btn-sm" to="/doctors/create/">
                   Add Doctor
                 </Link>,

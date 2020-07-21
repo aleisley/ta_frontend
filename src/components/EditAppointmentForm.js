@@ -39,13 +39,23 @@ export const EditAppointmentForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
+
+    let startDt, endDt;
+
+    try {
+      startDt = new Date(selectedAppointment.start_dt).toISOString();
+      endDt = new Date(selectedAppointment.end_dt).toISOString();
+    } catch(err) {
+      setError('Wrong datetime format entered.')
+    }
+
     if (!selectedAppointment.doctor_id) {
       setError('Please fill out the Doctor for the appointment.');
-    } else {
+    } else if (startDt && endDt) {
       axiosInstance.put(`/appointments/${selectedAppointment.id}/`, {
           ...selectedAppointment,
-          "start_dt": new Date(selectedAppointment.start_dt).toISOString(),
-          "end_dt": new Date(selectedAppointment.end_dt).toISOString()
+          "start_dt": startDt,
+          "end_dt": endDt
         })
         .then(res => {
           res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, CardBody, Button, Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { GlobalContext } from '../context/GlobalState';
@@ -10,7 +10,7 @@ import { axiosInstance } from '../axiosInstance';
 
 
 export const AppointmentList = () => {
-  const { appointments, getAppointments, removeAppointment } = useContext(GlobalContext);
+  const { appointments, getAppointments, removeAppointment, getDoctors } = useContext(GlobalContext);
   const [startFilterDate, setStartFilterDate] = useState(null);
   const [endFilterDate, setEndFilterDate] = useState(null);
   const [focusedInput, setFocusedInput] = useState(null);
@@ -86,6 +86,7 @@ export const AppointmentList = () => {
   }
 
   const refreshAppointments = () => {
+    getDoctors();
     getAppointments();
     setFilteredAppointments([]);
     setStartFilterDate(null);

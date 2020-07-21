@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Form,
   FormGroup,
@@ -34,9 +34,19 @@ export const AddAppointmentForm = props => {
 
   const onSubmit = e => {
     e.preventDefault();
+
+    let startDt, endDt;
+
+    try {
+      startDt = new Date(appointment.start_dt).toISOString();
+      endDt = new Date(appointment.end_dt).toISOString();
+    } catch(err) {
+      setError('Wrong datetime format entered.')
+    }
+
     if (!appointment.doctor_id) {
       setError('Please fill out the Doctor for the appointment.')
-    } else {
+    } else if (startDt && endDt) {
       axiosInstance.post('/appointments/', {...appointment})
         .then(res => {
           res.data.start_dt = new Date(`${res.data.start_dt}Z`).toLocaleString();
