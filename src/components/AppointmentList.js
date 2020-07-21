@@ -85,7 +85,7 @@ export const AppointmentList = () => {
       .catch(err => console.log(err))
   }
 
-  const refreshAppointments = () => {
+  const refresh = () => {
     getDoctors();
     getAppointments();
     setFilteredAppointments([]);
@@ -127,7 +127,7 @@ export const AppointmentList = () => {
             pagination={ true }
             actions={
               [
-                <Button color="primary" size="sm" onClick={ refreshAppointments }>Refresh</Button>,
+                <Button color="primary" size="sm" onClick={ refresh }>Refresh</Button>,
                 <Link className="btn btn-success btn-sm" to="/appointments/create/">
                   Add Appointment
                 </Link>,
